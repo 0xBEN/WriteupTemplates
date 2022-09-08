@@ -50,7 +50,7 @@ here:
   
 ```text
 Document here:
-  
+ 
 - Windows
   - "whoami /all" output
   
@@ -91,7 +91,7 @@ Document here:
   <summary>Click to expand</summary>
 
 ```text
-Document here:
+Document here any interesting username after running the below commands:
   
 - Windows
   - Domain:
@@ -115,7 +115,7 @@ Document here:
   <summary>Click to expand</summary>
 
 ```text
-Document here:
+Document here any interesting groups after running the below commands:
   
 - Windows
   - Domain:
@@ -139,7 +139,7 @@ Document here:
   <summary>Interfaces</summary>
 
 ```text
-Document here:
+Document here any interesting / additional interfaces:
   
 - Windows
   - "ipconfig" or "Get-NetAdapter" output
@@ -156,6 +156,7 @@ Document here:
   <summary>ARP Table</summary>
 
 ```text
+If targeting a network and enumerating additional hosts...
 Document here:
   
 - Windows
@@ -173,6 +174,7 @@ Document here:
   <summary>Routes</summary>
 
 ```text
+If targeting a network and enumerating additional hosts...
 Document here:
   
 - Windows
@@ -190,7 +192,7 @@ Document here:
   <summary>Open Ports</summary>
 
 ```text
-Document here:
+Document here any ports listening on loopback or not available to the outside:
   
 - Windows
   - "netstat -ano | findstr /i listening" or "Get-NetTCPConnection -State Listen" output
@@ -207,7 +209,7 @@ Document here:
   <summary>Ping Sweep</summary>
 
 ```text
-If the host has access to additional routes/interfaces:
+If the host has access to additional routes / interfaces:
 
   - Look at the IP address space and network mask
   - Find a ping sweep script that will work for the target network
