@@ -1,0 +1,381 @@
+# **Nmap Results**
+```text
+Nmap output here
+```
+
+<br>
+<br>
+<br>
+<br>
+
+# **Service Enumeration**
+
+## **TCP/00**
+Document here:
+* Screenshots (web browser, terminal screen)
+* Service version numbers
+* Document your findings when interacting with the service at various stages
+
+<br>
+<br>
+
+## **UDP/00**  
+Document here:
+* Screenshots (web browser, terminal screen)
+* Service version numbers
+* Document your findings when interacting with the service at various stages
+
+<br>
+<br>
+<br>
+<br>
+
+# **Exploit**
+Document
+here:
+* Exploit used (link to exploit)
+* Explain how the exploit works against the service
+* Any modified code (and why you modified it)
+
+<br>
+<br>
+<br>
+<br>
+
+# **Post-Exploit Enumeration**
+## **Current User**
+<details>
+	<summary>Click to expand</summary>
+  
+```text
+Document here:
+  
+- Windows
+  - "whoami /all" output
+  
+- *nix
+  - "id" output
+  - "sudo -l" output
+```
+  
+</details>
+
+<br>
+<br>
+
+## **OS &amp; Kernel**
+
+<details>
+  <summary>Click to expand</summary>
+  
+```text
+Document here:
+  
+- Windows
+  - "systeminfo" or "Get-ComputerInfo" output
+  
+- *nix
+  - "uname -a" output
+  - "cat /etc/os-release" (or similar) output
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Users**
+
+<details>
+  <summary>Click to expand</summary>
+
+```text
+Document here:
+  
+- Windows
+  - Domain:
+  	- "net user /domain" or "Get-ADUser -Filter *" output
+  
+  - Workgroup:
+  	- "net user" or "Get-LocalUser" output
+  
+- *nix
+  - "cat /etc/passwd" output
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Groups**
+
+<details>
+  <summary>Click to expand</summary>
+
+```text
+Document here:
+  
+- Windows
+  - Domain:
+  	- "net group /domain" or "Get-ADGroup -Filter *" output
+  
+  - Workgroup:
+  	- "net localgroup" or "Get-LocalGroup" output
+  
+- *nix
+  - "cat /etc/group" output
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Network**
+
+<details>
+  <summary>Interfaces</summary>
+
+```text
+Document here:
+  
+- Windows
+  - "ipconfig" or "Get-NetAdapter" output
+  
+- *nix
+  - "ip address" or "ifconfig" output
+```
+  
+</details>
+
+<br>
+
+<details>
+  <summary>ARP Table</summary>
+
+```text
+Document here:
+  
+- Windows
+  - "arp -a" or "Get-NetNeighbor" output
+  
+- *nix
+  - "ip neigh" or "arp -a" output
+```  
+
+</details>
+
+<br>
+
+<details>
+  <summary>Routes</summary>
+
+```text
+Document here:
+  
+- Windows
+  - "route print" or "Get-NetRoute" output
+  
+- *nix
+  - "ip route" or "route" output
+```
+  
+</details>
+
+<br>
+
+<details>
+  <summary>Open Ports</summary>
+
+```text
+Document here:
+  
+- Windows
+  - "netstat -ano | findstr /i listening" or "Get-NetTCPConnection -State Listen" output
+  
+- *nix
+  - "netstat -tanup | grep -i listen" output
+```
+  
+</details>
+
+<br>
+
+<details>
+  <summary>Ping Sweep</summary>
+
+```text
+If the host has access to additional routes/interfaces:
+
+  - Look at the IP address space and network mask
+  - Find a ping sweep script that will work for the target network
+  - Or you could try:
+  	- Transfering "nmap" or some other host discover tool to the host
+  	- Set up a SOCKS proxy and try a port scan through the foothold
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Processes**
+
+<details>
+  <summary>Click to expand</summary>
+
+```text
+First...
+Enumerate processes:
+  
+- Windows
+  - "tasklist"
+  - "Get-Process"
+  - "Get-CimInstance -ClassName Win32_Process | Select-Object Name, @{Name = 'Owner' ; Expression = {$owner = $_ | Invoke-CimMethod -MethodName GetOwner -ErrorAction SilentlyContinue ; if ($owner.ReturnValue -eq 0) {$owner.Domain + '\' + $owner.User}}}, CommandLine | Sort-Object Owner | Format-List"
+  
+- *nix
+  - "ps auxf"
+  
+Then...
+Document here:
+  - Any interesting processes run by users/administrators
+  - Any vulnerable applications
+  - Any intersting command line arguments visible
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Services**
+
+<details>
+  <summary>Click to expand</summary>
+
+```text
+- Windows
+  - First...
+    Enumerate services:
+  	  - "sc.exe query"
+  	  	- Then "sc.exe qc <service-name>"
+          - List the configuration for any interesting services
+  	  - "Get-CimInstance -ClassName Win32_Service | Select-Object Name, StartName, PathName | Sort-Object Name | Format-List"
+  - Then...
+  	Check for things like:
+  	  - Vulnerable service versions
+      - Unquoted service path
+      - Service path permissions too open?
+  
+- *nix
+  - First...
+  	Enumerate services:
+      - "service --status-all" or "systemctl list-units"
+  - Then...
+    Check for things like:
+      - Vulnerable service versions
+      - Configuration files
+      - Writable unit files
+  	  - Writable service binaries  
+  
+Then...
+Document here:
+  - Any interesting services or vulnerabilities
+  - Any vulnerable service versions
+  - Any intersting configuration files
+```
+
+</details>
+
+<br>
+<br>
+
+## **Scheduled Tasks**
+
+<details>
+  <summary>Click to expand</summary>
+
+```text
+First...
+Enumerate scheduled tasks:
+  
+- Windows
+  - "schtasks /QUERY /FO LIST /V | findstr /i /c:'taskname' /c:'run as user' /c:'task to run'"
+  - "Get-CimInstance -Namespace Root/Microsoft/Windows/TaskScheduler -ClassName MSFT_ScheduledTask | Select-Object TaskName, @{Name = 'User' ; Expression = {$_.Principal.UserId}}, @{Name = 'Action' ; Expression = {($_.Actions.Execute + ' ' + $_.Actions.Arguments)}} | Format-List"
+  
+- *nix
+  - "crontab -l"
+  - "cat /etc/cron* 2>/dev/null"
+  - "cat /var/spool/cron/crontabs/* 2>/dev/null"
+  
+Then...
+Document here:
+  - Any interesting scheduled tasks
+  - Any writable paths in the scheduled task
+  - Any intersting command line arguments visible
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Interesting Files**
+
+<details>
+  <summary>File 1</summary>
+
+```text
+File contents
+```
+ 
+</details>
+
+<br>
+<br>
+<br>
+<br>
+
+# **Privilege Escalation**  
+Document here:
+* Exploit used (link to exploit)
+* Explain how the exploit works 
+* Any modified code (and why you modified it)
+  
+<br>
+<br>
+<br>
+<br>
+
+# **Persistence**
+Document here how you set up persistence on the target
+  
+<br>
+<br>
+<br>
+<br>
+
+# **Flags**
+
+<details>
+  <summary>User</summary>
+
+```text
+Flag here
+```
+</details>
+
+<br>
+
+<details>
+  <summary>Root</summary>
+
+```text
+Flag here
+```
+  
+</details>
+
+<br>
+<br>
