@@ -36,6 +36,7 @@ here:
 * Exploit used (link to exploit)
 * Explain how the exploit works against the service
 * Any modified code (and why you modified it)
+* Proof of exploit (screenshot of reverse shell with target IP address output)
 
 <br>
 <br>
@@ -342,7 +343,8 @@ Document here:
 * Exploit used (link to exploit)
 * Explain how the exploit works 
 * Any modified code (and why you modified it)
-  
+* Proof of privilege escalation (screenshot showing ip address and privileged username)
+	
 <br>
 <br>
 <br>
