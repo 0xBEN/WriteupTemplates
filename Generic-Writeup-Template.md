@@ -325,12 +325,31 @@ Document here:
 <br>
 
 ## **Interesting Files**
-
 <details>
-  <summary>File 1</summary>
+  <summary>File 2</summary>
 
 ```text
-File contents
+
+```
+ 
+</details>
+<br>
+<br>
+<details>
+  <summary>File 2</summary>
+
+```text
+- Windows
+  - Check for writable scripts, writable directories
+  - Check for configuration files with passwords and other interesting info
+  - Check for scripts with external dependencies that can be overwritten or changed
+  
+- *nix
+  - Check for SUID binaries
+	- "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
+  - Check for writable scripts, writable directories
+  - Check for configuration files with passwords and other interesting info
+  - Check for scripts with external dependencies that can be overwritten or changed
 ```
  
 </details>
