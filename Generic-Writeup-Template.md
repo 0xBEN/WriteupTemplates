@@ -326,10 +326,54 @@ Document here:
 
 ## **Interesting Files**
 <details>
-  <summary>File 2</summary>
+  <summary>File 1</summary>
 
 ```text
-
+- Windows
+  - Check for writable scripts, writable directories
+  - Check for configuration files with passwords and other interesting info
+  - Check for scripts with external dependencies that can be overwritten or changed
+  - Some interesting places to check
+    - Check PATH variable for current user for possible interesting locations
+    - I reference %SYSTEMDRIVE%, as C: is not always the system volume
+    - Also check for hidden items
+        - %SYSTEMDRIVE%\interesting_folder
+        - %SYSTEMDRIVE%\Users\user_name
+            - Desktop, Downloads, Documents, .ssh, etc
+            - AppData (may also have some interesting things in Local, Roaming)
+        - %SYSTEMDRIVE%\Windows\System32\drivers\etc\hosts
+        - %SYSTEMDRIVE%\Program Files\program_name
+        - %SYSTEMDRIVE%\Program Files (x86)\program_name
+        - %SYSTEMDRIVE%\ProgramData
+        - %SYSTEMDRIVE%\Temp
+        - %SYSTEMDRIVE%\Windows\Temp 
+  
+- *nix
+  - Check for SUID binaries
+	- "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
+  - Check for writable scripts, writable directories
+  - Check for configuration files with passwords and other interesting info
+  - Check for scripts with external dependencies that can be overwritten or changed
+  - Use strings on interesting binaries to check for relative binary names and $PATH hijacking
+  - Some interesting places to check (check for hidden items)
+    - Check PATH variable for current user for possible interesting locations
+    - /interesting_folder
+    - /home/user_name
+        - Desktop, Downloads, Documents, .ssh, etc.
+    - /var/www/interesting_folder
+    - /var/mail/user_name
+    - /opt/interesting_folder
+    - /usr/local/interesting_folder
+    - /usr/local/bin/interesting_folder
+    - /usr/local/share/interesting_folder
+    - /etc/hosts
+    - /tmp
+    - /mnt
+    - /media
+    - /etc
+        - Look for interesting service folders
+        - Check for readable and/or writable configuration files
+        - May find cleartext passwords
 ```
  
 </details>
@@ -339,17 +383,7 @@ Document here:
   <summary>File 2</summary>
 
 ```text
-- Windows
-  - Check for writable scripts, writable directories
-  - Check for configuration files with passwords and other interesting info
-  - Check for scripts with external dependencies that can be overwritten or changed
-  
-- *nix
-  - Check for SUID binaries
-	- "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
-  - Check for writable scripts, writable directories
-  - Check for configuration files with passwords and other interesting info
-  - Check for scripts with external dependencies that can be overwritten or changed
+
 ```
  
 </details>
