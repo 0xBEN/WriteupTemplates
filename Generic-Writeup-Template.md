@@ -335,8 +335,8 @@ Document here:
   - Check for scripts with external dependencies that can be overwritten or changed
   - Some interesting places to check
     - Check PATH variable for current user for possible interesting locations
-    - I reference %SYSTEMDRIVE%, as C: is not always the system volume
     - Also check for hidden items
+    - I reference %SYSTEMDRIVE%, as C: is not always the system volume
         - %SYSTEMDRIVE%\interesting_folder
         - %SYSTEMDRIVE%\Users\user_name
             - Desktop, Downloads, Documents, .ssh, etc
