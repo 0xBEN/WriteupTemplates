@@ -342,6 +342,7 @@ Document here:
             - Desktop, Downloads, Documents, .ssh, etc
             - AppData (may also have some interesting things in Local, Roaming)
         - %SYSTEMDRIVE%\Windows\System32\drivers\etc\hosts
+        - %SYSTEMDRIVE%\inetpub
         - %SYSTEMDRIVE%\Program Files\program_name
         - %SYSTEMDRIVE%\Program Files (x86)\program_name
         - %SYSTEMDRIVE%\ProgramData
