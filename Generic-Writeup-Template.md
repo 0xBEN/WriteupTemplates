@@ -46,25 +46,6 @@ here:
 # **Post-Exploit Enumeration**
 ## **Operating Environment**
 <details>
-	<summary>Current User</summary>
-  
-```text
-Document here:
- 
-- Windows
-  - "whoami /all" output
-  
-- *nix
-  - "id" output
-  - "sudo -l" output
-```
-  
-</details>
-
-<br>
-<br>
-
-<details>
   <summary>OS &amp; Kernel</summary>
   
 ```text
@@ -76,6 +57,25 @@ Document here:
 - *nix
   - "uname -a" output
   - "cat /etc/os-release" (or similar) output
+```
+  
+</details>
+
+<br>
+<br>
+
+<details>
+	<summary>Current User</summary>
+  
+```text
+Document here:
+ 
+- Windows
+  - "whoami /all" output
+  
+- *nix
+  - "id" output
+  - "sudo -l" output
 ```
   
 </details>
