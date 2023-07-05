@@ -44,9 +44,9 @@ here:
 <br>
 
 # **Post-Exploit Enumeration**
-## **Current User**
+## **Operating Environment**
 <details>
-	<summary>Click to expand</summary>
+	<summary>Current User</summary>
   
 ```text
 Document here:
@@ -64,10 +64,8 @@ Document here:
 <br>
 <br>
 
-## **OS &amp; Kernel**
-
 <details>
-  <summary>Click to expand</summary>
+  <summary>OS &amp; Kernel</summary>
   
 ```text
 Document here:
@@ -85,20 +83,16 @@ Document here:
 <br>
 <br>
 
-## **Users**
+## **Users and Groups**
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Local Users</summary>
 
 ```text
-Document here any interesting username after running the below commands:
+Document here any interesting username(s) after running the below commands:
   
 - Windows
-  - Domain:
-  	- "net user /domain" or "Get-ADUser -Filter *" output
-  
-  - Workgroup:
-  	- "net user" or "Get-LocalUser" output
+  - "net user" or "Get-LocalUser" output
   
 - *nix
   - "cat /etc/passwd" output
@@ -109,20 +103,14 @@ Document here any interesting username after running the below commands:
 <br>
 <br>
 
-## **Groups**
-
 <details>
-  <summary>Click to expand</summary>
+  <summary>Local Groups</summary>
 
 ```text
-Document here any interesting groups after running the below commands:
+Document here any interesting group(s) after running the below commands:
   
 - Windows
-  - Domain:
-  	- "net group /domain" or "Get-ADGroup -Filter *" output
-  
-  - Workgroup:
-  	- "net localgroup" or "Get-LocalGroup" output
+  - "net localgroup" or "Get-LocalGroup" output
   
 - *nix
   - "cat /etc/group" output
@@ -133,10 +121,41 @@ Document here any interesting groups after running the below commands:
 <br>
 <br>
 
-## **Network**
+<details>
+  <summary>Domain Users</summary>
+
+```text
+Document here any interesting username(s) after running the below commands:
+  
+- Windows
+  - "net user /domain" or "Get-ADUser -Filter *" output
+```
+
+</details>
+
+<br>
+<br>
 
 <details>
-  <summary>Interfaces</summary>
+  <summary>Domain Groups</summary>
+
+```text
+Document here any interesting group(s) after running the below commands:
+  
+- Windows
+  - Domain:
+  	- "net group /domain" or "Get-ADGroup -Filter *" output
+```
+  
+</details>
+
+<br>
+<br>
+
+## **Network Configurations**
+
+<details>
+  <summary>Network Interfaces</summary>
 
 ```text
 Document here any interesting / additional interfaces:
@@ -146,6 +165,23 @@ Document here any interesting / additional interfaces:
   
 - *nix
   - "ip address" or "ifconfig" output
+```
+  
+</details>
+
+<br>
+
+<details>
+  <summary>Open Ports</summary>
+
+```text
+Document here any ports listening on loopback or not available to the outside:
+  
+- Windows
+  - "netstat -ano | findstr /i listening" or "Get-NetTCPConnection -State Listen" output
+  
+- *nix
+  - "netstat -tanup | grep -i listen" output
 ```
   
 </details>
@@ -189,23 +225,6 @@ Document here:
 <br>
 
 <details>
-  <summary>Open Ports</summary>
-
-```text
-Document here any ports listening on loopback or not available to the outside:
-  
-- Windows
-  - "netstat -ano | findstr /i listening" or "Get-NetTCPConnection -State Listen" output
-  
-- *nix
-  - "netstat -tanup | grep -i listen" output
-```
-  
-</details>
-
-<br>
-
-<details>
   <summary>Ping Sweep</summary>
 
 ```text
@@ -223,10 +242,10 @@ If the host has access to additional routes / interfaces:
 <br>
 <br>
 
-## **Processes**
+## **Processes and Services**
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Interesting Processes</summary>
 
 ```text
 First...
@@ -252,10 +271,8 @@ Document here:
 <br>
 <br>
 
-## **Services**
-
 <details>
-  <summary>Click to expand</summary>
+  <summary>Interesting Services</summary>
 
 ```text
 - Windows
@@ -297,7 +314,7 @@ Document here:
 ## **Scheduled Tasks**
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Interesting Scheduled Tasks</summary>
 
 ```text
 First...
@@ -326,7 +343,7 @@ Document here:
 
 ## **Interesting Files**
 <details>
-  <summary>File 1</summary>
+  <summary>C:\InterestingDir\Intersting-File1.txt</summary>
 
 ```text
 - Windows
@@ -378,13 +395,16 @@ Document here:
 ```
  
 </details>
+
 <br>
 <br>
+
 <details>
-  <summary>File 2</summary>
+  <summary>/opt/interesting_dir/interesting-file2.txt</summary>
 
 ```text
-
+Add full file contents
+Or snippet of file contents
 ```
  
 </details>
