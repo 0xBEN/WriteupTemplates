@@ -93,6 +93,7 @@ Document here any interesting username(s) after running the below commands:
   
 - Windows
   - "net user" or "Get-LocalUser" output
+  - "net user <username>" or "Get-LocalUser <username> | Select-Object *" to enumerate details about specific users
   
 - *nix
   - "cat /etc/passwd" output
@@ -111,9 +112,11 @@ Document here any interesting group(s) after running the below commands:
   
 - Windows
   - "net localgroup" or "Get-LocalGroup" output
+  - "net localgroup <group_name>" or "Get-LocalGroupMember <group_name> | Select-Object *" to enumerate users of specific groups
   
 - *nix
   - "cat /etc/group" output
+  - "cat /etc/group | grep <username>" to check group memberships of specific users
 ```
   
 </details>
@@ -128,7 +131,10 @@ Document here any interesting group(s) after running the below commands:
 Document here any interesting username(s) after running the below commands:
   
 - Windows
-  - "net user /domain" or "Get-ADUser -Filter *" output
+  - "net user /domain" or "Get-ADUser -Filter * -Properties *" output
+  - "net user <username> /domain" or "Get-ADUser -Identity <username> -Properties *" to enumerate details about specific domain users
+  - Not a local administrator and can't run PowerShell AD cmdlets?
+    - See here: https://notes.benheater.com/books/active-directory/page/powershell-ad-module-on-any-domain-host-as-any-user
 
 - *nix
   - Check if joined to a domain
@@ -186,7 +192,10 @@ Document here any interesting username(s) after running the below commands:
 Document here any interesting group(s) after running the below commands:
   
 - Windows
-  - "net group /domain" or "Get-ADGroup -Filter *" output
+  - "net group /domain" or "Get-ADGroup -Filter * -Properties *" output
+  - "net group <group_name> /domain" or "Get-ADGroup -Identity <group_name> | Get-ADGroupMember -Recursive" to enumerate members of specific domain groups
+  - Not a local administrator and can't run PowerShell AD cmdlets?
+    - See here: https://notes.benheater.com/books/active-directory/page/powershell-ad-module-on-any-domain-host-as-any-user
 
 - *nix
 
