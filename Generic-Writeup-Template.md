@@ -129,6 +129,35 @@ Document here any interesting username(s) after running the below commands:
   
 - Windows
   - "net user /domain" or "Get-ADUser -Filter *" output
+
+- *nix
+  - Check if joined to a domain
+    - /usr/sbin/realm list -a
+    - /usr/sbin/adcli info <realm_domain_name>
+  - No credential:
+    - Check for log entries containing possible usernames
+      - "find /var/log -type f -readable -exec grep -ail '<realm_domain_name>' {} \; 2>/dev/null"
+      - Then, grep through each log file and remove any garbage from potential binary files:
+        - Using strings: "strings /var/log/filename | grep -i '<realm_domain_name>'"
+        - If strings not available, try using od: "od -An -S 1 /var/log/filename | grep -i '<realm_domain_name>'"
+        - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/log/filename"
+      - Validate findings:
+        - Check if discovered usernames are valid: "getent passwd <domain_username>"
+        - If valid, check user group memberships: List "id <domain_username>"
+      - Check domain password and lockout policy for password spray feasibility
+    - See "Domain Groups", as certain commands there can reveal some additional usernames
+   - With a domain credential:
+     - If you have a valid domain user credential, you can try "ldapsearch"
+     - Dump all objects from LDAP: "ldapsearch -x -H ldap://dc-ip-here -D 'CN=username,DC=realmDomain,DC=realmTLD' -W -b 'DC=realmDomain,DC=realmTLD' 'objectClass=*'"
+     - Dump all users from LDAP: "ldapsearch -x -H ldap://dc-ip-here -D 'CN=username,DC=realmDomain,DC=realmTLD' -W -b 'DC=realmDomain,DC=realmTLD' 'objectClass=account'"
+  - If you're root on the domain-joined host:
+     - You can try best-effort dumping the SSSD cache:
+       - Using strings: "strings /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i 'ou=.*user.*'" | grep -iv 'disabled' | sort -u
+       - If strings not available, try using od: "od -An -S 1 /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i 'ou=.*user.*'" | grep -iv 'disabled' | sort -u
+       - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/lib/sss/db/cache_<realm_domain_name>.ldb | sed 's/[^[:print:]\r\t]/\n/g' | grep -i 'ou=.*user.*' | grep -iv disabled"
+     - You can transfer the SSSD TDB cache for local parsing
+       - Default file path: /var/lib/sss/db/cache_<realm_domain_name>.tdb
+       - You can dump this file with tools such as "tdbtool" or "tdbdump"
 ```
 
 </details>
@@ -143,8 +172,30 @@ Document here any interesting username(s) after running the below commands:
 Document here any interesting group(s) after running the below commands:
   
 - Windows
-  - Domain:
-  	- "net group /domain" or "Get-ADGroup -Filter *" output
+  - "net group /domain" or "Get-ADGroup -Filter *" output
+
+- *nix
+  - Check if joined to a domain
+    - /usr/sbin/realm list -a
+    - /usr/sbin/adcli info <realm_domain_name>
+  - No credential:
+    - Enumerate default Active Directory security groups: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#default-active-directory-security-groups
+      - "getent group 'Domain Admins@<realm_domain_name>'"
+      - "getent group 'Domain Users@<realm_domain_name>'"
+      - NOTE: "getent" will only return domain group members that have been cached on the local system, not all group members in the domain
+      - This can still build a substantial user list for password spraying (check domain password and lockout policy)
+  - With a domain credential:
+     - If you have a valid domain user credential, you can try "ldapsearch"
+     - Dump all objects from LDAP: "ldapsearch -x -H ldap://dc-ip-here -D 'CN=username,DC=realmDomain,DC=realmTLD' -W -b 'DC=realmDomain,DC=realmTLD' 'objectClass=*'"
+     - Dump all groups from LDAP: "ldapsearch -x -H ldap://dc-ip-here -D 'CN=username,DC=realmDomain,DC=realmTLD' -W -b 'DC=realmDomain,DC=realmTLD' 'objectClass=group'"
+  - If you're root on the domain-joined host:
+     - You can try dumping the SSSD cache:
+       - Using strings: "strings /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i '<realm_domain_name>'"
+       - If strings not available, try using od: "od -An -S 1 /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i '<realm_domain_name>'"
+       - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/lib/sss/db/cache_<realm_domain_name>.ldb | sed 's/[^[:print:]\r\t]/\n/g' | grep -i 'ou=.*group.*' | grep -i '^CN='"
+     - You can transfer the SSSD TDB cache for local parsing
+       - Default file path: /var/lib/sss/db/cache_<realm_domain_name>.tdb
+       - You can dump this file with tools such as "tdbtool" or "tdbdump"
 ```
   
 </details>
