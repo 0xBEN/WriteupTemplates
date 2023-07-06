@@ -257,7 +257,7 @@ Document here any ports listening on loopback or not available to the outside:
   - "netstat -ano | findstr /i listening" or "Get-NetTCPConnection -State Listen" output
   
 - *nix
-  - "netstat -tanup | grep -i listen" output
+  - "netstat -tanup | grep -i listen" or "ss -tanup | grep -i listen" output
 ```
   
 </details>
@@ -333,7 +333,7 @@ Enumerate processes:
   - "Get-CimInstance -ClassName Win32_Process | Select-Object Name, @{Name = 'Owner' ; Expression = {$owner = $_ | Invoke-CimMethod -MethodName GetOwner -ErrorAction SilentlyContinue ; if ($owner.ReturnValue -eq 0) {$owner.Domain + '\' + $owner.User}}}, CommandLine | Sort-Object Owner | Format-List"
   
 - *nix
-  - "ps auxf"
+  - "ps aux --sort user"
   
 Then...
 Document here:
@@ -363,15 +363,17 @@ Document here:
   	  - Vulnerable service versions
       - Unquoted service path
       - Service path permissions too open?
+        - Can you overwrite the service binary?
+        - DLL injection?
   
 - *nix
   - First...
   	Enumerate services:
-      - "service --status-all" or "systemctl list-units"
+      - "service --status-all" or "systemctl list-units --type=service --state=running"
   - Then...
     Check for things like:
       - Vulnerable service versions
-      - Configuration files
+      - Configuration files with passwords or other information
       - Writable unit files
   	  - Writable service binaries  
   
