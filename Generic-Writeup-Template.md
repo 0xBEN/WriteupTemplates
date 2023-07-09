@@ -430,7 +430,7 @@ Document here:
 
 ## **Interesting Files**
 <details>
-  <summary>C:\InterestingDir\Intersting-File1.txt</summary>
+  <summary>C:\InterestingDir\Interesting-File1.txt</summary>
 
 ```text
 - Windows
