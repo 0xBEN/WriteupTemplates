@@ -170,9 +170,9 @@ Document here any interesting username(s) after running the below commands:
 
      - You can try best-effort dumping the SSSD cache:
 
-       - Using strings: "strings /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i 'ou=.*user.*'" | grep -iv 'disabled' | sort -u
-       - If strings not available, try using od: "od -An -S 1 /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i 'ou=.*user.*'" | grep -iv 'disabled' | sort -u
-       - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/lib/sss/db/cache_<realm_domain_name>.ldb | sed 's/[^[:print:]\r\t]/\n/g' | grep -i 'ou=.*user.*' | grep -iv disabled"
+       - Using strings: "strings /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -iE '[ou|cn]=.*user.*'" | grep -iv 'disabled' | sort -u
+       - If strings not available, try using od: "od -An -S 1 /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -iE '[ou|cn]=.*user.*'" | grep -iv 'disabled' | sort -u
+       - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/lib/sss/db/cache_<realm_domain_name>.ldb | sed 's/[^[:print:]\r\t]/\n/g' | grep -iE '[ou|cn]=.*user.*' | grep -iv disabled"
 
      - You can transfer the SSSD TDB cache for local parsing
 
@@ -224,7 +224,7 @@ Document here any interesting group(s) after running the below commands:
 
        - Using strings: "strings /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i '<realm_domain_name>'"
        - If strings not available, try using od: "od -An -S 1 /var/lib/sss/db/cache_<realm_domain_name>.ldb | grep -i '<realm_domain_name>'"
-       - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/lib/sss/db/cache_<realm_domain_name>.ldb | sed 's/[^[:print:]\r\t]/\n/g' | grep -i 'ou=.*group.*' | grep -i '^CN='"
+       - If od not available, try grep standalone: "grep -iao '.*<realm_domain_name>.*' /var/lib/sss/db/cache_<realm_domain_name>.ldb | sed 's/[^[:print:]\r\t]/\n/g' | grep -iE '[ou|cn]=.*group.*' | grep -i '^CN='"
 
      - You can transfer the SSSD TDB cache for local parsing
 
