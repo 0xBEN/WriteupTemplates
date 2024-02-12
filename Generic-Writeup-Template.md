@@ -384,6 +384,7 @@ Document here:
       - Vulnerable service versions
       - Configuration files with passwords or other information
       - Writable unit files
+          - One-liner to check for writable service unit files: `systemctl list-units --state=running --type=service | grep '\.service' | awk -v FS=' ' '{print $1}' | xargs -I % systemctl status % | grep 'Loaded:' | cut -d '(' -f 2 | cut -d ';' -f 1 | xargs -I % find % -writable 2>/dev/null`
   	  - Writable service binaries  
   
 Then...
