@@ -452,7 +452,12 @@ Document here:
         - %SYSTEMDRIVE%\Program Files (x86)\program_name
         - %SYSTEMDRIVE%\ProgramData
         - %SYSTEMDRIVE%\Temp
-        - %SYSTEMDRIVE%\Windows\Temp 
+        - %SYSTEMDRIVE%\Windows\Temp
+    - Check the Registry for passwords, configurations, interesting text
+        - HKEY_LOCAL_MACHINE or HKLM
+        - HKEY_CURRENT_USER or HKCU
+        - Search the HKLM hive recursively for the word 'password'
+            - "reg query HKLM /f password /t REG_SZ /s"
   
 - *nix
   - Check for SUID binaries
