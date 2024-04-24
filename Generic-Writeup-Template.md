@@ -94,7 +94,8 @@ Document here any interesting username(s) after running the below commands:
 - Windows
   - "net user" or "Get-LocalUser" output
   - "net user <username>" or "Get-LocalUser <username> | Select-Object *" to enumerate details about specific users
-  
+  - Can you dump and pass/crack hashes from SAM using your current access?
+
 - *nix
   - "cat /etc/passwd" output
 ```
@@ -113,7 +114,6 @@ Document here any interesting group(s) after running the below commands:
 - Windows
   - "net localgroup" or "Get-LocalGroup" output
   - "net localgroup <group_name>" or "Get-LocalGroupMember <group_name> | Select-Object *" to enumerate users of specific groups
-  - Can you dump and pass/crack hashes from SAM using your current access?
   
 - *nix
   - "cat /etc/group" output
