@@ -113,7 +113,7 @@ Document here any interesting group(s) after running the below commands:
 - Windows
   - "net localgroup" or "Get-LocalGroup" output
   - "net localgroup <group_name>" or "Get-LocalGroupMember <group_name> | Select-Object *" to enumerate users of specific groups
-  - Can you dump credentials from SAM using your current access?
+  - Can you dump and pass/crack hashes from SAM using your current access?
   
 - *nix
   - "cat /etc/group" output
@@ -136,7 +136,8 @@ Document here any interesting username(s) after running the below commands:
   - "net user <username> /domain" or "Get-ADUser -Identity <username> -Properties *" to enumerate details about specific domain users
   - Not a local administrator and can't run PowerShell AD cmdlets?
     - See here: https://notes.benheater.com/books/active-directory/page/powershell-ad-module-on-any-domain-host-as-any-user
-  - Can you dump credentials from LSA using your current access?
+  - Can you dump and pass/crack local user / admin hashes from the SAM using your current access?
+  - Can you dump and pass/crack hashes from LSA using your current access?
 
 - *nix
   - Check if joined to a domain
