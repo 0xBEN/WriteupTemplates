@@ -53,10 +53,15 @@ Document here:
   
 - Windows
   - "systeminfo" or "Get-ComputerInfo" output
+  - Check environment variables:
+    - CMD: "set"
+    - PowerShell: "Get-ChildItem Env:\"
   
 - *nix
   - "uname -a" output
   - "cat /etc/os-release" (or similar) output
+  - Check environment variables:
+    - "env" or "set"
 ```
   
 </details>
@@ -444,6 +449,7 @@ Document here:
   - Some interesting places to check
     - Check PATH variable for current user for possible interesting locations
     - Also check for hidden items
+    - PowerShell History File: (Get-PSReadLineOption).HistorySavePath
     - I reference %SYSTEMDRIVE%, as C: is not always the system volume
         - %SYSTEMDRIVE%\interesting_folder
         - %SYSTEMDRIVE%\Users\user_name
@@ -473,7 +479,11 @@ Document here:
     - Check PATH variable for current user for possible interesting locations
     - /interesting_folder
     - /home/user_name
-        - Desktop, Downloads, Documents, .ssh, etc.
+      - .profile
+      - .bashrc, .zshrc
+      - .bash_history, .zsh_history
+      - Desktop, Downloads, Documents, .ssh, etc.
+      - PowerShell History File: (Get-PSReadLineOption).HistorySavePath
     - /var/www/interesting_folder
     - /var/mail/user_name
     - /opt/interesting_folder
@@ -485,9 +495,9 @@ Document here:
     - /mnt
     - /media
     - /etc
-        - Look for interesting service folders
-        - Check for readable and/or writable configuration files
-        - May find cleartext passwords
+      - Look for interesting service folders
+      - Check for readable and/or writable configuration files
+      - May find cleartext passwords
 ```
  
 </details>
