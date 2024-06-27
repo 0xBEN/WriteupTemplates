@@ -444,7 +444,7 @@ Document here:
 ```text
 - Windows
   - Check for writable files and directories
-      - See [this script](https://github.com/0xBEN/CTF-Scripts/blob/main/HackTheBox/Axlle/Find-FileAccess.ps1) I wrote for enumerating interesting permissions
+      - See https://github.com/0xBEN/CTF-Scripts/blob/main/HackTheBox/Axlle/Find-FileAccess.ps1
   - Check for configuration files with passwords and other interesting info
   - Check for scripts with external dependencies that can be overwritten or changed
   - Some interesting places to check
