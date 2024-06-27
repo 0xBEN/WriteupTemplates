@@ -443,7 +443,8 @@ Document here:
 
 ```text
 - Windows
-  - Check for writable scripts, writable directories
+  - Check for writable files and directories
+      - See [this script](https://github.com/0xBEN/CTF-Scripts/blob/main/HackTheBox/Axlle/Find-FileAccess.ps1) I wrote for enumerating interesting permissions
   - Check for configuration files with passwords and other interesting info
   - Check for scripts with external dependencies that can be overwritten or changed
   - Some interesting places to check
@@ -470,8 +471,10 @@ Document here:
   
 - *nix
   - Check for SUID binaries
-	- "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
-  - Check for writable scripts, writable directories
+      - "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
+  - Check for interesting / writable scripts, writable directories or files
+      - `find /etc -writable -exec ls -l {} \; 2>/dev/null`
+      - `find / -type f \( -user $(whoami) -o -group $(whoami) \) -exec ls -l {} \; 2>/dev/null
   - Check for configuration files with passwords and other interesting info
   - Check for scripts with external dependencies that can be overwritten or changed
   - Use strings on interesting binaries to check for relative binary names and $PATH hijacking
