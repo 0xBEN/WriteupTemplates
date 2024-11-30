@@ -419,14 +419,8 @@ Document here how you set up persistence on the target
 
 > [!tldr]- User
 > 
-> &nbsp;
->```text
-flag goes here
->```
+> `flag goes here`
 
 > [!tldr]- Root
 > 
-> &nbsp;
->```text
-flag goes here
->```
+> `flag goes here`
