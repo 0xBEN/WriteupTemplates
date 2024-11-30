@@ -229,11 +229,11 @@ here:
 >
 > If the host has access to additional routes / interfaces:
 >
->     - Look at the IP address space and network mask
->     - Find a ping sweep script that will work for the target network
->     - Or you could try:
->       - Transfering `nmap` or some other host discover tool to the host
->       - Set up a SOCKS proxy and try a port scan through the foothold
+>- Look at the IP address space and network mask
+>- Find a ping sweep script that will work for the target network
+>- Or you could try:
+>	- Transfering `nmap` or some other host discover tool to the host
+>	- Set up a SOCKS proxy and try a port scan through the foothold
 
 <br>
 <br>
