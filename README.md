@@ -8,7 +8,7 @@ You can find any CTF or Vulnerable Target template that I've written in this rep
 * You can remove sections from the template as needed
   * For example, not using persistence on the target? Remove the section.
   * Working on a single target and not worried about routes / ping sweeps? Remove the section(s).
-
-**Update Nov. 30, 2024**
+ 
+## **Update Nov. 30, 2024**
 
 There is now a markdown version optimized for use with Obsidian. Copy and paste the markdown into the Obsidian editor and see if it suits your needs.
