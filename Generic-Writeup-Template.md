@@ -52,7 +52,7 @@ here:
 Document here:
   
 - Windows
-  - "systeminfo" or "Get-ComputerInfo" output
+  - "systeminfo" or "Get-ComputerInfo" or "reg.exe query 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion'" output
   - Check environment variables:
     - CMD: "set"
     - PowerShell: "Get-ChildItem Env:\"
