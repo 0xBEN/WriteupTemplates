@@ -359,6 +359,8 @@ here:
 > - *nix
 >     - Check for SUID binaries
 >         - `find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null`
+>     - [Check binary capabilities](https://linux-audit.com/kernel/capabilities/overview/)
+>         - `/usr/sbin/getcap -r / 2>/dev/null`
 >     - Check for interesting / writable scripts, writable directories or files
 >         - `find /etc -writable -exec ls -l {} \; 2>/dev/null`
 >         - `find / -type f \( -user $(whoami) -o -group $(whoami) \) -exec ls -l {} \; 2>/dev/null
