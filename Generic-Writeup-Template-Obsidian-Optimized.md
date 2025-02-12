@@ -195,6 +195,9 @@ here:
 >   
 > - *nix
 >     - `ip address` or `ifconfig` output
+>     - If in a stripped down environment and no `ip` or `ifconfig`
+>       - `hostname -I`
+>       - `cat /var/lib/dhcp/dhclient.eth0.leases`
 
 >[!tldr]- Open Ports
 > Document here any ports listening on loopback or not available to the outside:
@@ -204,6 +207,8 @@ here:
 >   
 > - *nix
 >     - `netstat -tanup | grep -i listen` or `ss -tanup | grep -i listen` output
+>     - If in a stripped down environment and no netstat or ss
+>       - See this [shell one-liner](https://notes.benheater.com/books/network-pivoting/page/alternate-ways-to-read-host-network-data#bkmrk-shell-one-liner-1)
 
 > [!tldr]- ARP Table
 >
@@ -214,6 +219,8 @@ here:
 >     - `arp -a` or `Get-NetNeighbor` output
 > - *nix
 >     - `ip neigh` or `arp -a` output
+>     - If in a stripped down environment and now `ip` or `arp`
+>       - `cat /proc/net/arp`
 
 > [!tldr]- Routes
 >
@@ -224,6 +231,8 @@ here:
 >     - `route print` or `Get-NetRoute` output
 > - *nix
 >     - `ip route` or `route` output
+>     - If in a stripped down environment and no ip or route
+>       - See this [shell one-liner](https://notes.benheater.com/books/network-pivoting/page/alternate-ways-to-read-host-network-data#bkmrk-shell-one-liner)
 
 > [!tldr]- Ping Sweep
 >
@@ -231,6 +240,7 @@ here:
 >
 >- Look at the IP address space and network mask
 >- Find a ping sweep script that will work for the target network
+>  - [Some other ideas here](https://notes.benheater.com/books/network-pivoting/page/alternative-network-scans)
 >- Or you could try:
 >	- Transfering `nmap` or some other host discover tool to the host
 >	- Set up a SOCKS proxy and try a port scan through the foothold
