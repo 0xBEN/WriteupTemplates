@@ -350,7 +350,7 @@ here:
 >       - PowerShell History File: `(Get-PSReadLineOption).HistorySavePath`
 >       - I reference `%SYSTEMDRIVE%`, as `C:` is not always the system volume
 >           - `%SYSTEMDRIVE%\interesting_folder`
->           - ``%SYSTEMDRIVE%\`$RECYCLE.BIN``
+>           - `%SYSTEMDRIVE%\$RECYCLE.BIN`
 >           - `%SYSTEMDRIVE%\Users\user_name`
 >               - Desktop, Downloads, Documents, .ssh, etc
 >               - AppData (may also have some interesting things in Local, Roaming)
