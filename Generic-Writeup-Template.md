@@ -251,7 +251,9 @@ Document here any interesting group(s) after running the below commands:
   <summary>Network Interfaces</summary>
 
 ```text
-Document here any interesting / additional interfaces:
+- Document current IP configuration and check for:
+  - Alternate NIC configurations
+  - Are there any Docker networks?
   
 - Windows
   - "ipconfig" or "Get-NetAdapter" output
@@ -271,7 +273,11 @@ Document here any interesting / additional interfaces:
   <summary>Open Ports</summary>
 
 ```text
-Document here any ports listening on loopback or not available to the outside:
+- Check for:
+    - Ports firewalled from initial `nmap` scan
+    - Ports bound to loopback
+    - Ports bound to Docker hosts
+    - Ports bound to other NICs
   
 - Windows
   - "netstat -ano | findstr /i listening" or "Get-NetTCPConnection -State Listen" output
@@ -290,8 +296,11 @@ Document here any ports listening on loopback or not available to the outside:
   <summary>ARP Table</summary>
 
 ```text
-If targeting a network and enumerating additional hosts...
-Document here:
+- ARP table caches hosts at layer 2
+    - Any recent hosts with connectivity via configured NIC are cached
+    - Check for:
+        - Docker IPs
+        - Hosts on alternate NICs
   
 - Windows
   - "arp -a" or "Get-NetNeighbor" output
@@ -310,8 +319,9 @@ Document here:
   <summary>Routes</summary>
 
 ```text
-If targeting a network and enumerating additional hosts...
-Document here:
+- Check for:
+    - Routes providing access to additional subnets
+    - Docker subnets
   
 - Windows
   - "route print" or "Get-NetRoute" output
@@ -330,14 +340,36 @@ Document here:
   <summary>Ping Sweep</summary>
 
 ```text
-If the host has access to additional routes / interfaces:
+- Scope
+    - Always ensure the target hosts / subnets are in scope!
 
-  - Look at the IP address space and network mask
-  - Find a ping sweep script that will work for the target network
-    - Some other ideas here: https://notes.benheater.com/books/network-pivoting/page/alternative-network-scans
-  - Or you could try:
-  	- Transfering "nmap" or some other host discover tool to the host
-  	- Set up a SOCKS proxy and try a port scan through the foothold
+- Layer 2 Host Discovery
+    - Is the subnet accessible via a NIC on the host?
+        - ARP scan will work
+        - Almost zero chance that ARP will be filtered
+
+- Layer 3 Host Discovery
+    - Perhaps you saw some alternate IPs in configuration files
+    - Or, maybe you saw IPs in the `netstat` state table
+    - If the subnets exist, but don't have a direct path via NIC
+        - The host is going to send the traffic to default gateway
+        - Default gateway will route the traffic to the target
+    - To ping sweep these subnets, you'll need to use:
+        - ICMP (ping)
+        - TCP / UDP scans (as ICMP may be blocked)
+    
+- Methodology:
+    - Look at the IP address space and network mask
+    - Layer 2
+        - `arp-scan` (Linux)
+        - `nmap -n -sn` (ARP if NIC exists, Linux & Windows)
+    - Layer 3
+        - `ping`
+        - `nmap -n -sn` (ICMP when no NIC, Linux & Windows)
+        - [Some other ideas here](https://notes.benheater.com/books/network-pivoting/page/alternative-network-scans)
+    - Layer 4
+        - Perform a port scan through tunnel / SOCKS on the target
+        - Transfer or use existing `nmap` binary on the target to port scan
 ```
   
 </details>
