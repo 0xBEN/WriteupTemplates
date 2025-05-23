@@ -453,69 +453,76 @@ Document here:
 
 ```text
 - Windows
-  - Check for writable files and directories
-      - See https://github.com/0xBEN/CTF-Scripts/blob/main/HackTheBox/Axlle/Find-FileAccess.ps1
-  - Check for configuration files with passwords and other interesting info
-  - Check for scripts with external dependencies that can be overwritten or changed
-  - Some interesting places to check
-    - Check PATH variable for current user for possible interesting locations
-    - Also check for hidden items
-    - PowerShell History File: (Get-PSReadLineOption).HistorySavePath
-    - I reference %SYSTEMDRIVE%, as C: is not always the system volume
-        - %SYSTEMDRIVE%\interesting_folder
-        - %SYSTEMDRIVE%\$RECYCLE.BIN
-	    - `Get-ChildItem -Force -File -Recurse "$env:SystemDrive\`$RECYCLE.BIN"`
-        - %SYSTEMDRIVE%\Users\user_name
-            - Desktop, Downloads, Documents, .ssh, etc
-            - AppData (may also have some interesting things in Local, Roaming)
-        - %SYSTEMDRIVE%\Windows\System32\drivers\etc\hosts
-        - %SYSTEMDRIVE%\inetpub
-        - %SYSTEMDRIVE%\Program Files\program_name
-        - %SYSTEMDRIVE%\Program Files (x86)\program_name
-        - %SYSTEMDRIVE%\ProgramData
-        - %SYSTEMDRIVE%\Temp
-        - %SYSTEMDRIVE%\Windows\Temp
-    - Check the Registry for passwords, configurations, interesting text
-        - HKEY_LOCAL_MACHINE or HKLM
-        - HKEY_CURRENT_USER or HKCU
-        - Search the HKLM hive recursively for the word 'password'
-            - "reg query HKLM /f password /t REG_SZ /s"
+	- Check for writable files and directories
+  		- See https://github.com/0xBEN/CTF-Scripts/blob/main/HackTheBox/Axlle/Find-FileAccess.ps1
+	- Check for configuration files with passwords and other interesting info
+	- Check for scripts with external dependencies that can be overwritten or changed
+	- Some interesting places to check
+		- Check PATH variable for current user for possible interesting locations
+		- Also check for hidden items
+		- PowerShell History File: (Get-PSReadLineOption).HistorySavePath
+    	- Check for DPAPI cached credentials
+			- Credential Blobs
+				- "%USERPROFILE%\AppData\Local\Microsoft\Credentials"
+				- "%USERPROFILE%\AppData\Roaming\Microsoft\Credentials"
+			- Master Keys
+				- "%USERPROFILE%\AppData\Local\Microsoft\Protect"
+				- "%USERPROFILE%\AppData\Roaming\Microsoft\Protect"
+	- I reference %SYSTEMDRIVE%, as C: is not always the system volume
+		- "%SYSTEMDRIVE%\interesting_folder"
+		- "%SYSTEMDRIVE%\$RECYCLE.BIN"
+		- `Get-ChildItem -Force -File -Recurse "$env:SystemDrive\`$RECYCLE.BIN"`
+		- "%SYSTEMDRIVE%\Users\user_name"
+			- Desktop, Downloads, Documents, .ssh, etc
+			- AppData (may also have some interesting things in Local, Roaming)
+		- "%SYSTEMDRIVE%\Windows\System32\drivers\etc\hosts"
+		- "%SYSTEMDRIVE%\inetpub"
+		- "%SYSTEMDRIVE%\Program Files\program_name"
+		- "%SYSTEMDRIVE%\Program Files (x86)\program_name"
+		- "%SYSTEMDRIVE%\ProgramData"
+		- "%SYSTEMDRIVE%\Temp"
+		- "%SYSTEMDRIVE%\Windows\Temp"
+	- Check the Registry for passwords, configurations, interesting text
+		- HKEY_LOCAL_MACHINE or HKLM
+		- HKEY_CURRENT_USER or HKCU
+		- Search the HKLM hive recursively for the word 'password'
+			- "reg query HKLM /f password /t REG_SZ /s"
   
 - *nix
-  - Check for SUID binaries
-      - "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
-  - [Check binary capabilities](https://linux-audit.com/kernel/capabilities/overview/)
-      - "getcap-r / 2>/dev/null"
-          - If "getcap" command not found, check "/usr/bin/getcap" or "/usr/sbin/getcap" (probably "$PATH" issue)
-  - Check for interesting / writable scripts, writable directories or files
-      - `find /etc -writable -exec ls -l {} \; 2>/dev/null`
-      - `find / -type f \( -user $(whoami) -o -group $(whoami) \) -exec ls -l {} \; 2>/dev/null
-  - Check for configuration files with passwords and other interesting info
-  - Check for scripts with external dependencies that can be overwritten or changed
-  - Use strings on interesting binaries to check for relative binary names and $PATH hijacking
-  - Some interesting places to check (check for hidden items)
-    - Check PATH variable for current user for possible interesting locations
-    - /interesting_folder
-    - /home/user_name
-      - .profile
-      - .bashrc, .zshrc
-      - .bash_history, .zsh_history
-      - Desktop, Downloads, Documents, .ssh, etc.
-      - PowerShell History File: (Get-PSReadLineOption).HistorySavePath
-    - /var/www/interesting_folder
-    - /var/mail/user_name
-    - /opt/interesting_folder
-    - /usr/local/interesting_folder
-    - /usr/local/bin/interesting_folder
-    - /usr/local/share/interesting_folder
-    - /etc/hosts
-    - /tmp
-    - /mnt
-    - /media
-    - /etc
-      - Look for interesting service folders
-      - Check for readable and/or writable configuration files
-      - May find cleartext passwords
+	- Check for SUID binaries
+		- "find / -type f -perm /4000 -exec ls -l {} \; 2>/dev/null"
+  	- [Check binary capabilities](https://linux-audit.com/kernel/capabilities/overview/)
+ 		- "getcap-r / 2>/dev/null"
+	  	- If "getcap" command not found, check "/usr/bin/getcap" or "/usr/sbin/getcap" (probably "$PATH" issue)
+	- Check for interesting / writable scripts, writable directories or files
+		- `find /etc -writable -exec ls -l {} \; 2>/dev/null`
+  		- `find / -type f \( -user $(whoami) -o -group $(whoami) \) -exec ls -l {} \; 2>/dev/null
+	- Check for configuration files with passwords and other interesting info
+	- Check for scripts with external dependencies that can be overwritten or changed
+	- Use strings on interesting binaries to check for relative binary names and $PATH hijacking
+	- Some interesting places to check (check for hidden items)
+    	- Check PATH variable for current user for possible interesting locations
+ 		- /interesting_folder
+		- /home/user_name
+			- .profile
+			- .bashrc, .zshrc
+			- .bash_history, .zsh_history
+			- Desktop, Downloads, Documents, .ssh, etc.
+			- PowerShell History File: (Get-PSReadLineOption).HistorySavePath
+		- /var/www/interesting_folder
+		- /var/mail/user_name
+		- /opt/interesting_folder
+		- /usr/local/interesting_folder
+		- /usr/local/bin/interesting_folder
+		- /usr/local/share/interesting_folder
+		- /etc/hosts
+		- /tmp
+		- /mnt
+		- /media
+		- /etc
+	- Look for interesting service folders
+	- Check for readable and/or writable configuration files
+	- May find cleartext passwords
 ```
  
 </details>
