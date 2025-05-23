@@ -348,20 +348,27 @@ here:
 > 	      - PowerShell: `$env:Path`
 >       - Also check for hidden items
 >       - PowerShell History File: `(Get-PSReadLineOption).HistorySavePath`
+>       - Check for DPAPI cached credentials
+>           - Credential Blobs
+>               - "%USERPROFILE%\AppData\Local\Microsoft\Credentials"
+>                - "%USERPROFILE%\AppData\Roaming\Microsoft\Credentials"
+>            - Master Keys
+>                - "%USERPROFILE%\AppData\Local\Microsoft\Protect"
+>                - "%USERPROFILE%\AppData\Roaming\Microsoft\Protect"
 >       - I reference `%SYSTEMDRIVE%`, as `C:` is not always the system volume
->           - `%SYSTEMDRIVE%\interesting_folder`
->           - `%SYSTEMDRIVE%\$RECYCLE.BIN`
+>           - `"%SYSTEMDRIVE%\interesting_folder"`
+>           - `"%SYSTEMDRIVE%\$RECYCLE.BIN"`
 >               - ``Get-ChildItem -Force -File -Recurse "$env:SystemDrive\`$RECYCLE.BIN"``
->           - `%SYSTEMDRIVE%\Users\user_name`
+>           - `"%SYSTEMDRIVE%\Users\user_name"`
 >               - Desktop, Downloads, Documents, .ssh, etc
 >               - AppData (may also have some interesting things in Local, Roaming)
->           - `%SYSTEMDRIVE%\Windows\System32\drivers\etc\hosts`
->           - `%SYSTEMDRIVE%\inetpub`
->           - `%SYSTEMDRIVE%\Program Files\program_name`
->           - `%SYSTEMDRIVE%\Program Files (x86)\program_name`
->           - `%SYSTEMDRIVE%\ProgramData`
->           - `%SYSTEMDRIVE%\Temp`
->           - `%SYSTEMDRIVE%\Windows\Temp`
+>           - `"%SYSTEMDRIVE%\Windows\System32\drivers\etc\hosts"`
+>           - `"%SYSTEMDRIVE%\inetpub"`
+>           - `"%SYSTEMDRIVE%\Program Files\program_name"`
+>           - `"%SYSTEMDRIVE%\Program Files (x86)\program_name"`
+>           - `"%SYSTEMDRIVE%\ProgramData"`
+>           - `"%SYSTEMDRIVE%\Temp"`
+>           - `"%SYSTEMDRIVE%\Windows\Temp"`
 >       - Check the Registry for passwords, configurations, interesting text
 >           - `HKEY_LOCAL_MACHINE` or `HKLM`
 >           - `HKEY_CURRENT_USER` or `HKCU`
