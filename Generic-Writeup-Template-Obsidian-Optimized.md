@@ -96,6 +96,11 @@ here:
 >       - See here: https://notes.benheater.com/books/active-directory/page/powershell-ad-module-on-any-domain-host-as-any-user
 >     - Can you dump and pass/crack local user / admin hashes from the SAM using your current access?
 >     - Can you dump and pass/crack hashes from LSA using your current access?
+>     - Any deleted objects in AD?
+>       - `Get-ADObject -IncludeDeletedObjects -Filter 'Deleted -eq $true'`
+>       - Can you restore them?
+>         - `Get-ADObject -IncludeDeletedObjects -Filter 'Deleted -eq $true' | Restore-ADObject`
+>       - Re-run BloodHound. Does this open any new attack paths?
 > 
 > - *nix
 >     - Check if joined to a domain
@@ -147,6 +152,11 @@ here:
 >     - `net group <group_name> /domain` or `Get-ADGroup -Identity <group_name> | Get-ADGroupMember -Recursive` to enumerate members of specific domain groups
 >     - Not a local administrator and can't run PowerShell AD cmdlets?
 >       - See here: https://notes.benheater.com/books/active-directory/page/powershell-ad-module-on-any-domain-host-as-any-user
+>     - Any deleted objects in AD?
+>       - `Get-ADObject -IncludeDeletedObjects -Filter 'Deleted -eq $true'`
+>       - Can you restore them?
+>         - `Get-ADObject -IncludeDeletedObjects -Filter 'Deleted -eq $true' | Restore-ADObject`
+>       - Re-run BloodHound. Does this open any new attack paths?
 > 
 > - *nix
 > 
