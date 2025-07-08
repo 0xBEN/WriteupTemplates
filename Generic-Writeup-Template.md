@@ -425,8 +425,10 @@ Document here:
     Enumerate services:
   	  - "sc.exe query"
   	  	- Then "sc.exe qc <service-name>"
-          - List the configuration for any interesting services
-  	  - "Get-CimInstance -ClassName Win32_Service | Select-Object Name, StartName, PathName | Sort-Object Name | Format-List"
+			- List the configuration for any interesting services
+  	  - Or "Get-CimInstance -ClassName Win32_Service | Select-Object Name, StartName, PathName | Sort-Object Name | Format-List"
+	  - Or "reg.exe query 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services'"
+		- Then "reg.exe query 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\service_name'"
   - Then...
   	Check for things like:
   	  - Vulnerable service versions
