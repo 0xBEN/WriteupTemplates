@@ -304,6 +304,7 @@ here:
 >
 > - *nix
 >     - `ps aux --sort user`
+>     - Or, filter noise with `ps aux --sort user | grep -v '\ \[.*\]$'`
 >
 > Then...
 > Document here:
